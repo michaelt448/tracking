@@ -1,3 +1,14 @@
 /server/node_modules
 /server/.env
 /server/.vscode
+/client/tracking/node_modules
+/client/tracking/.expo/*
+/client/tracking/npm-debug.*
+/client/tracking/*.jks
+/client/tracking/*.p8
+/client/tracking/*.p12
+/client/tracking/*.key
+/client/tracking/*.mobileprovision
+/client/tracking/*.orig.*
+/client/tracking/web-build/
+/client/tracking/.DS_Store
