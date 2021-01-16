@@ -1,4 +1,5 @@
 import React from 'react'
+import { FontAwesome } from '@expo/vector-icons'
 
 // Navigation
 import {
@@ -29,6 +30,15 @@ import { Provider as TrackerProvider } from './src/context/TrackContext'
 
 import { setNavigator }  from './src/navigationRef'
 
+const trackListFlow = createStackNavigator({
+  TrackList: TrackListScreen,
+  TrackDetail: TrackDetailScreen
+})
+
+trackListFlow.navigationOptions = {
+  title: 'Tracks', 
+  tabBarIcon: <FontAwesome name='th-list' size={20}/>
+}
 const switchNavigation =  createSwitchNavigator({
   Blank: BlankScreen,
   loginFlow: createStackNavigator({
@@ -36,10 +46,7 @@ const switchNavigation =  createSwitchNavigator({
     Signin: SigninScreen
   }),
   mainFlow: createBottomTabNavigator({
-    trackListFlow: createStackNavigator({
-      TrackList: TrackListScreen,
-      TrackDetail: TrackDetailScreen
-    }),
+    trackListFlow,
     TrackCreate: TrackCreateScreen,
         Account: AccountScreen,
   })
