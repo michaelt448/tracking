@@ -12,3 +12,14 @@
 /client/tracking/*.orig.*
 /client/tracking/web-build/
 /client/tracking/.DS_Store
+/client/tracks-ts/node_modules
+/client/trackss-ts/.expo/*
+/client/trackss-ts/npm-debug.*
+/client/trackss-ts/*.jks
+/client/trackss-ts/*.p8
+/client/trackss-ts/*.p12
+/client/trackss-ts/*.key
+/client/trackss-ts/*.mobileprovision
+/client/trackss-ts/*.orig.*
+/client/trackss-ts/web-build/
+/client/trackss-ts/.DS_Store
