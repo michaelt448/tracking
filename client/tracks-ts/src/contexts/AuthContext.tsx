@@ -3,18 +3,14 @@ import createDataContext from './createDataContext'
 import { login, signup } from '../service/tracker'
 import { getAccessToken, setAccessToken, removeAccessToken } from '../service/PhoneStorage'
 import { AxiosResponse } from 'axios'
-import { AuthenticationResponseType } from '../models/types'
+import { ActionType, AuthenticationResponseType } from '../models/types'
 import { GenericState } from '../models/interfaces'
 
 const LOGIN_SUCCESS = 'LOGIN_SUCCESS'
 const LOGIN_ERROR = 'LOGIN_ERROR'
 const LOGOUT = 'LOGOUT'
 const CLEAR_LOGIN_ERROR = 'CLEAR_LOGIN_ERROR'
-
-type ActionType<T> = {
-  type: string
-  payload?: T
-}
+const LOGIN_FAIL = 'LOGIN_FAIL'
 
 export type AuthenticationCredentials = {
   email: string,
@@ -30,7 +26,7 @@ export type AuthContextType = {
   tryLocalSignIn: () => Promise<void>
 }
 
-type AuthenticationOpts = { accessToken?: string, error?: string }
+type AuthenticationOpts = { accessToken?: string, error?: string, loading?: boolean }
 
 export class AuthenticationState implements GenericState {
   private accessToken: string
@@ -56,8 +52,10 @@ export class AuthenticationState implements GenericState {
 const authReducer = (state: AuthenticationState, action: ActionType<any>) => {
   switch(action.type) {
     case LOGIN_SUCCESS: {
+      console.log('hello there')
       const newToken : string = action.payload
       const { error } = state.getState()
+      console.log('hello from other side')
       return new AuthenticationState({ accessToken: newToken, error })
     }
     case LOGIN_ERROR: {
@@ -73,6 +71,9 @@ const authReducer = (state: AuthenticationState, action: ActionType<any>) => {
       const { accessToken } = state.getState()
       return new AuthenticationState({ accessToken })
     }
+    case LOGIN_FAIL: {
+      return new AuthenticationState({ loading: false })
+    }
     default: return state
   }
 }
@@ -81,9 +82,11 @@ const tryLocalSignIn = (dispatch: React.Dispatch<ActionType<string>>) => {
   return async () => {
     try {
       const accessToken = await getAccessToken()
+      console.log('this is the accesstoken', accessToken)
       if (accessToken) {
         dispatch({ type: LOGIN_SUCCESS, payload: accessToken})
       } else {
+        dispatch({ type: LOGIN_FAIL })
       }
     } catch (err) {
       dispatch({ type: LOGIN_ERROR, payload: err })

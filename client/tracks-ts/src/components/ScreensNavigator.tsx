@@ -9,7 +9,7 @@ import {
   TrackDetailScreen, 
   TrackCreateScreen,
   AccountScreen } from '../screens'
-  import { SCREEN_NAMES } from '../models/enums'
+import { SCREEN_NAMES } from '../models/enums'
 import BlankScreen from '../screens/BlankScreen'
 
 const ScreenNavigator: React.FC = (): JSX.Element =>  {
